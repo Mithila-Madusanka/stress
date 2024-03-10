@@ -7,13 +7,6 @@
   100% { opacity: 1; }
 }
 
-header, footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-}
-
 .video-section {
     position: relative;
     height: 87vh; /* Adjust the height as needed */
@@ -133,6 +126,7 @@ header, footer {
       <div class="modal-body">
         
       <form method="POST" action="<?=base_url()?>/common/userform">
+      <input type="hidden" id="username" name="username" value="">
           <div class="mt-3">
             <label class="mr-3">
               <input type="radio" name="userType" value="student"> Student
@@ -145,7 +139,7 @@ header, footer {
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="nextButtonClick()">
+          <button type="submit" class="btn btn-primary">
             Next <i class="fas fa-arrow-right"></i>
           </button>
         </div>
@@ -169,6 +163,7 @@ header, footer {
   { 
     var name = $("#name").val();
     $("#userNamePlaceholder").html(name);
+    $("#username").val(name);
     $('#userModel').modal('hide');
   }
 </script>
