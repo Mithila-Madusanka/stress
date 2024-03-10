@@ -25,6 +25,12 @@ ini_set('display_errors', '0');
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </script>
 <style>
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
 
 body {
     margin: 0;
@@ -61,18 +67,22 @@ body {
     color: #fff;
     font-weight: bold;
 }
+a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+ }
 </style>
 </head>
 <body>
 <header>
     <div class="header-left">
-        <h1>Mind Cool</h1>
+        <h1><a href="<?=base_url()?>">Mind Cool</a></h1>
     </div>
     <nav class="header-right">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">My Account</a></li>
+            <li><a href="<?=base_url()?>">Home</a></li>
+            <li><a href="<?=base_url()?>/common/about">About</a></li>
+            <li><a href="<?=base_url()?>/login/user">My Account</a></li>
         </ul>
     </nav>
 </header>

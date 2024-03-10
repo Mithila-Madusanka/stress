@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Common extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,13 +19,27 @@ class Login extends CI_Controller {
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 	public function index()
-	{
-		$this->load->view('login');
+	{   
+		$this->load->view('home');
 	}
 
-    public function user()
-    {
-        $this->load->view('user/login');
-    }
+    public function userForm()
+	{   
+        $type = $this->input->post('userType');
+        $username = $this->input->post('username');
+        $this->load->library('session');
+        $this->session->set_userdata(array('username'=>$username));
+        if($type == 'student')
+		    $this->load->view('student/questionform');
+        elseif($type == 'employee')
+            $this->load->view('employee/questionform');
+	}
+
+    public function about()
+	{   
+        $this->load->view('about');
+	}
+
+    
 	
 }
