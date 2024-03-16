@@ -36,14 +36,108 @@ class Admin extends CI_Controller {
 
         $result = $this->Admin_model->checkLogin($email, $password);
         if($result)
-        {
-            echo "Ok";
-        }
+		{	
+			$this->session->set_userdata(array(
+				'adminusername'=>$result->first_name." ".$result->last_name,
+				'admintype'=>$result->type,
+				'userid'=>$result->id,
+			));
+			$this->load->view('admin/dashboard');
+		}
         else
         {
-            echo "Not Ok";
+			$this->session->set_flashdata('error', 'Email or Password Incorrect. Please Try Again!');
+			redirect("Admin");
         }
     }
+
+	public function logOut()
+	{	
+		$this->session->unset_userdata('adminusername');
+		$this->session->unset_userdata('admintype');
+		$this->session->unset_userdata('userid');
+        redirect('admin');
+	}
+
+	public function addAdmin()
+	{
+		$first_name = $this->input->post('first_name');
+		$last_name = $this->input->post('last_name');
+		$nic = $this->input->post('nic');
+		$dob = $this->input->post('dob');
+		$email = $this->input->post('email');
+		$type = $this->input->post('type');
+
+		$data = array(
+			'first_name'=>$first_name,
+			'last_name'=>$last_name,
+			'dob'=>date("Y-m-d", strtotime($dob)),
+			'nic'=>$nic,
+			'email'=>$email,
+			'password'=>$nic,
+			'status'=>'CONFIRMED',
+			'type'=>$type,
+			'added_by'=>$this->session->userdata('userid'),
+			'added_at'=>date("Y-m-d H:i:s"),
+		);
+
+		$result = $this->Admin_model->add_admin($data);
+		if($result)
+			$this->session->set_flashdata('msg', 'Admin added sucsessfully!');
+		else
+			$this->session->set_flashdata('error', 'Something. Went Wrong Please Try Again!');
+
+		redirect("Menu/profiles");
+	}
+
+	public function editAdmin($id)
+	{	
+		$data['admin'] = $this->Admin_model->get_admin_data_by_id($id);
+		$this->load->view('admin/edit_admin', $data);
+	}
+
+	function updateAdmin()
+	{	
+		$id = $this->input->post('id');
+		$first_name = $this->input->post('first_name');
+		$last_name = $this->input->post('last_name');
+		$nic = $this->input->post('nic');
+		$dob = $this->input->post('dob');
+		$email = $this->input->post('email');
+		$type = $this->input->post('type');
+
+		$data = array(
+			'first_name'=>$first_name,
+			'last_name'=>$last_name,
+			'dob'=>date("Y-m-d", strtotime($dob)),
+			'email'=>$email,
+			'password'=>$nic,
+			'type'=>$type,
+			'updated_by'=>$this->session->userdata('userid'),
+			'updated_at'=>date("Y-m-d H:i:s"),
+		);
+
+		$result = $this->Admin_model->update_admin($data, $id);
+		if($result)
+			$this->session->set_flashdata('msg', 'Admin data sucsessfully updated!');
+		else
+			$this->session->set_flashdata('error', 'Something. Went Wrong Please Try Again!');
+
+		redirect("Menu/profiles");
+	}
+
+	function deleteAdmin()
+	{	
+		$id = $this->input->post('delete_id');
+
+		$result = $this->Admin_model->delete_admin($id);
+		if($result)
+			$this->session->set_flashdata('msg', 'Admin deleted sucsessfully!');
+		else
+			$this->session->set_flashdata('error', 'Something. Went Wrong Please Try Again!');
+
+		redirect("Menu/profiles");
+	}
     
 	
 }
