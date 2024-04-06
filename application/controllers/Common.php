@@ -40,6 +40,70 @@ class Common extends CI_Controller {
         $this->load->view('about');
 	}
 
+	public function student_stress_level()
+	{
+		$sleep_quality = intval($this->input->post('sleep_quality'));
+		$accedmic = intval($this->input->post('accedmic'));
+		$study = intval($this->input->post('study'));
+		$hedaches = intval($this->input->post('hedaches'));
+		$extractivities = intval($this->input->post('extractivities'));
+
+		$input_data = array('input_data'=>[$sleep_quality,$hedaches,$accedmic,$study,$extractivities]);
+		$input_data = json_encode($input_data);
+		$prdeiction = predict_student_stress_level($input_data);
+		$data = json_decode($prdeiction, true);
+		echo $data['predicted_stress_level'];
+	}
+
+	public function employee_stress_level()
+	{
+		$gender = $this->input->post('gender');
+		$dob = $this->input->post('dob');
+		$sleep_duration = intval($this->input->post('sleep_duration'));
+		$quality_sleep = intval($this->input->post('quality_sleep'));
+		$height = $this->input->post('height');
+		$weight = $this->input->post('weight');
+		$daily_steps = intval($this->input->post('daily_steps'));
+		$sleep_disorder = $this->input->post('sleep_disorder');
+
+		//Caclulate BMI
+		$height_meters = $height*0.30480;
+		$bmi = $weight/$height_meters*$height_meters;
+		
+		$bmi_category = 0; //Deafult Value
+		if($bmi >= 30)
+			$bmi_category = 2; //Obese
+		elseif($bmi >= 25) 
+			$bmi_category = 3; //Over Weight
+		elseif($bmi >= 18.5)
+			$bmi_category = 1; //Normal Weight
+		else
+			$bmi_category = 0; //Normal
+
+		//Calculate Age
+		$diff = date_diff(date_create($dob), date_create(date("d/m/Y")));
+		$age = $diff->format('%y');
+		$age = intval($age);
+
+		if($gender == "Male")
+			$gender = 1;
+		elseif($gender == "Female")
+			$gender = 0;
+
+		if($sleep_disorder == "Insomnia")
+			$sleep_disorder = 0;
+		elseif($sleep_disorder == "None")
+			$sleep_disorder = 1;
+		elseif($sleep_disorder == "Sleep Apnea")
+			$sleep_disorder = 2;
+
+		$input_data = array('input_data'=>[$gender,$age,$sleep_duration,$quality_sleep,$bmi_category,$daily_steps,$sleep_disorder]);
+		$input_data = json_encode($input_data);
+		$prdeiction = predict_employee_stress_level($input_data);
+		$data = json_decode($prdeiction, true);
+		echo $data['predicted_stress_level'];
+	}
+
     
 	
 }

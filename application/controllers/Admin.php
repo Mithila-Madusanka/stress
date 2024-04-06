@@ -66,6 +66,7 @@ class Admin extends CI_Controller {
 		$nic = $this->input->post('nic');
 		$dob = $this->input->post('dob');
 		$email = $this->input->post('email');
+		$password = $this->input->post('password');
 		$type = $this->input->post('type');
 
 		$data = array(
@@ -74,7 +75,7 @@ class Admin extends CI_Controller {
 			'dob'=>date("Y-m-d", strtotime($dob)),
 			'nic'=>$nic,
 			'email'=>$email,
-			'password'=>$nic,
+			'password'=>$password,
 			'status'=>'CONFIRMED',
 			'type'=>$type,
 			'added_by'=>$this->session->userdata('userid'),
@@ -111,7 +112,7 @@ class Admin extends CI_Controller {
 			'last_name'=>$last_name,
 			'dob'=>date("Y-m-d", strtotime($dob)),
 			'email'=>$email,
-			'password'=>$nic,
+			'password'=>$password,
 			'type'=>$type,
 			'updated_by'=>$this->session->userdata('userid'),
 			'updated_at'=>date("Y-m-d H:i:s"),

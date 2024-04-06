@@ -57,6 +57,38 @@
             margin-top:30px
         }
 </style>
+<script>
+    function predict_stress_level()
+    {   
+		var gender = $("#gender").val();
+		var dob = $("#dob").val();
+		var sleep_duration = $("#sleep").val();
+		var quality_sleep = $("#sleepqlty").val();
+	    var height = $("#height").val();
+		var weight = $("#weight").val();
+		var daily_steps = $("#steps").val();
+		var sleep_disorder = $("#sleepdisorder").val();
+
+
+        var formData = new FormData();
+        formData.append('gender', gender);
+        formData.append('dob', dob);
+        formData.append('sleep_duration', sleep_duration);
+        formData.append('quality_sleep', quality_sleep);
+        formData.append('height', height);
+        formData.append('weight', weight);
+        formData.append('daily_steps', daily_steps);
+        formData.append('sleep_disorder', sleep_disorder);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'employee_stress_level/', true);
+        xhr.onload = function() {
+            var response = xhr.responseText;
+            response = parseFloat(response);
+            updateProgressBar(response*10);
+        };
+        xhr.send(formData);
+    }
+</script>
 <div class="container-fluid">
     <div class="row">
         <!-- Image on the left side -->
@@ -101,8 +133,17 @@
                     <label for="exampleFormControlSelect2">Daily Steps</label>
                     <input type="number" id="steps" class="form-control" placeholder="Daily Steps">
                 </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Sleep Disorders</label>
+                    <select class="form-control" id="sleepdisorder" required>
+                        <option>Select Your Gender</option>
+                        <option value="None">None</option>
+                        <option value="Insomnia">Insomnia</option>
+                        <option value="Sleep Apnea">Sleep Apnea</option>
+                    </select>
+                </div>
                 <div style="float:right;">
-                    <button type="submit" class="btn btn-lg btn-primary">Complete</button>
+                    <button type="button" onclick="predict_stress_level()" class="btn btn-lg btn-primary">Complete</button>
                 </div>
                 <br>
             </form>
@@ -114,10 +155,6 @@
                     <div class="progress" id="stress-progress">
                         <div id="loading-bar"></div>
                         <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="stress-level"></div>
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="stress-input">Type Stress Level:</label>
-                        <input type="text" class="form-control" id="stress-input" placeholder="Enter stress level">
                     </div>
                 </div>
             </div>
