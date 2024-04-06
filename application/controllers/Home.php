@@ -22,5 +22,20 @@ class Home extends CI_Controller {
 	{   
 		$this->load->view('home');
 	}
+
+	function test()
+	{
+		$sleep_quality = 1;
+		$accedmic = 2;
+		$study = 1;
+		$hedaches = 1;
+		$extractivities = 1;
+
+		$input_data = array('input_data'=>[1,27,6.5,6,0,4200,1]);
+		$input_data = json_encode($input_data);
+		$prdeiction = predict_employee_stress_level($input_data);
+		$data = json_decode($prdeiction, true);
+		print($data['predicted_stress_level']);
+	}
 	
 }

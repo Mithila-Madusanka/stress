@@ -1,5 +1,6 @@
 <?$this->load->view("includes/header.php")?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
     .formdiv{
         border:2px solid black;
@@ -57,6 +58,32 @@
             margin-top:30px
         }
 </style>
+<script>
+    function predict_stress_level()
+    {   
+        var sleep_quality = $("#sleepQltySlider").val();
+        var accedmic = $("#accedmicPrefSlider").val();
+        var study = $("#studyLoadSlider").val();
+        var hedaches = $("#hedaches").val();
+        var extractivities = $("#extractivities").val();
+
+
+        var formData = new FormData();
+        formData.append('sleep_quality', sleep_quality);
+        formData.append('accedmic', accedmic);
+        formData.append('study', study);
+        formData.append('hedaches', hedaches);
+        formData.append('extractivities', extractivities);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'student_stress_level/', true);
+        xhr.onload = function() {
+            var response = xhr.responseText;
+            response = parseFloat(response);
+            updateProgressBar(response*20);
+        };
+        xhr.send(formData);
+    }
+</script>
 <div class="container-fluid">
     <div class="row">
         <!-- Image on the left side -->
@@ -98,7 +125,7 @@
                     </div>
                     <br>
                     <div style="float:right;">
-                        <button type="submit" class="btn btn-lg btn-primary">Complete</button>
+                        <button type="button" onclick="predict_stress_level()" class="btn btn-lg btn-primary">Complete</button>
                     </div>
                     <br>
                 </form>
@@ -110,10 +137,6 @@
                     <div class="progress" id="stress-progress">
                         <div id="loading-bar"></div>
                         <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="stress-level"></div>
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="stress-input">Type Stress Level:</label>
-                        <input type="text" class="form-control" id="stress-input" placeholder="Enter stress level">
                     </div>
                 </div>
             </div>
