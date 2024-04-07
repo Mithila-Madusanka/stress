@@ -6,6 +6,7 @@
         padding:30px;
         margin-top:30px;
         border-radius: 25px;
+        background:#CBD6E2;
     }
 
     #stress-meter {
@@ -56,6 +57,12 @@
             text-align:center;
             margin-top:30px
         }
+
+        body{
+            background:url("<?=base_url()?>/media/images/studentright.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 </style>
 <script>
     function predict_stress_level()
@@ -91,13 +98,9 @@
 </script>
 <div class="container-fluid">
     <div class="row">
-        <!-- Image on the left side -->
-        <div class="col-md-6">
-            <img src="<?=base_url()?>/media/images/studentright.jpg" class="img-fluid" alt="Student Image">
-        </div>
-        
+        <div class="col-md-2"></div>        
         <!-- Form on the right side -->
-        <div class="col-md-6">
+        <div class="col-md-8">
              <div id="usernamediv">Hi! <?=$this->session->userdata('username')?></div>
             <div class="formdiv">
             <form>
@@ -136,7 +139,7 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Sleep Disorders</label>
                     <select class="form-control" id="sleepdisorder" required>
-                        <option>Select Your Gender</option>
+                        <option>Select Your Disorders</option>
                         <option value="None">None</option>
                         <option value="Insomnia">Insomnia</option>
                         <option value="Sleep Apnea">Sleep Apnea</option>
@@ -159,6 +162,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 
