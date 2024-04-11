@@ -139,6 +139,91 @@ class Admin extends CI_Controller {
 
 		redirect("Menu/profiles");
 	}
+
+	function add_stress_level_quote()
+	{
+		$level = $this->input->post('level');
+		$title = $this->input->post('title');
+		$description = $this->input->post('description');
+
+		$data = array(
+			'title' => $title,
+			'description' => $description,
+			'level' => $level,
+			'add_by' =>$this->session->userdata('userid'),
+			'add_at' => date("Y-m-d H:i:s"),
+		);
+
+		$result = $this->Admin_model->add_stress_level_quote($data);
+		if($result)
+			$this->session->set_flashdata('msg', 'Quota Added sucsessfully!');
+		else
+			$this->session->set_flashdata('error', 'Something. Went Wrong Please Try Again!');
+		if($level == "LOW")
+			redirect("Menu/add_stress_level_low");
+		elseif($level == "MID")
+			redirect("Menu/add_stress_level_mid");
+		elseif($level == "HIGH")
+			redirect("Menu/add_stress_level_high");
+
+	}
+
+	function delete_stress_level_quote()
+	{	
+
+		$id = $this->input->post('delete_id');
+		$level = $this->input->post('level_del');
+
+		$result = $this->Admin_model->delete_stress_level_quote($id);
+		if($result)
+			$this->session->set_flashdata('msg', 'Quota Deleted sucsessfully!');
+		else
+			$this->session->set_flashdata('error', 'Something. Went Wrong Please Try Again!');
+		if($level == "LOW")
+			redirect("Menu/add_stress_level_low");
+		elseif($level == "MID")
+			redirect("Menu/add_stress_level_mid");
+		elseif($level == "HIGH")
+			redirect("Menu/add_stress_level_high");
+
+	}
+
+	function edit_quote($id)
+	{	
+		
+		$data['quote'] = $this->Admin_model->get_quote_data_by_id($id);
+		$this->load->view('admin/edit_quote', $data);
+
+	}
+
+	function updateQuote()
+	{	
+		$id = $this->input->post('id');
+		$title = $this->input->post('title');
+		$description = $this->input->post('description');
+		$level = $this->input->post('level');
+
+		$data = array(
+			'title' => $title,
+			'description' => $description,
+			'level' => $level,
+		);
+
+		$result = $this->Admin_model->update_quote($data, $id);
+		if($result)
+			$this->session->set_flashdata('msg', 'Quote data sucsessfully updated!');
+		else
+			$this->session->set_flashdata('error', 'Something. Went Wrong Please Try Again!');
+
+		if($level == "LOW")
+			redirect("Menu/add_stress_level_low");
+		elseif($level == "MID")
+			redirect("Menu/add_stress_level_mid");
+		elseif($level == "HIGH")
+			redirect("Menu/add_stress_level_high");
+
+	}
+    
     
 	
 }

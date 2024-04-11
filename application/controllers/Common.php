@@ -18,6 +18,11 @@ class Common extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+	function __construct() {
+        parent::__construct();
+        $this->load->model('Admin_model');
+    }
+
 	public function index()
 	{   
 		$this->load->view('home');
@@ -120,6 +125,30 @@ class Common extends CI_Controller {
 		$this->load->library('youtube');
 		$data['response'] = $this->youtube->search($query,20,$token);
 		$this->load->view('music/musiclist',$data);
+	}
+
+	function get_stress_level_quota()
+	{
+		$level = $this->input->post('level');
+		$quot = $this->Admin_model->get_quote_by_level($level);
+		if($quot)
+		{	
+			$output = '<br>';
+			foreach($quot as $row)
+			{
+				$string = '<b>'.$row->title.'</b> : '.$row->description.'<br><br>';
+				$output = $output.$string;
+			}
+		}
+
+		echo $output;
+	}
+
+	function show_stress_relief_best_practices($level)
+	{
+		$data['quot'] = $this->Admin_model->get_quote_by_level($level);
+		$this->load->view('common/quote_list',$data);
+
 	}
 
     
