@@ -106,7 +106,8 @@ class Common extends CI_Controller {
 		$input_data = json_encode($input_data);
 		$prdeiction = predict_employee_stress_level($input_data);
 		$data = json_decode($prdeiction, true);
-		echo $data['predicted_stress_level'];
+		// echo $data['predicted_stress_level'];
+		echo $height_meters;
 	}
 
 	function get_stress_reduce_music()
@@ -149,6 +150,11 @@ class Common extends CI_Controller {
 		$data['quot'] = $this->Admin_model->get_quote_by_level($level);
 		$this->load->view('common/quote_list',$data);
 
+	}
+
+	function test()
+	{
+		send_sms();
 	}
 
     

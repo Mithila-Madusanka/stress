@@ -69,25 +69,47 @@
         font-size: 1.5rem; /* Adjust the font size as needed */
         padding: 15px; /* Adjust the padding as needed */
       }
+
+.content {
+    background-color: #bfbfbf;
+    opacity: 0.7;
+    padding-top:50px;
+    padding-right:20px;
+    margin-top:100px;
+    color:black;
+}
+
+.content ul li {
+    text-align: left;
+}
+
+.heading{
+    color:black;
+    padding-bottom:20px;
+    font-weight: 600
+}
+
 </style>
 <section class="video-section">
     <video autoplay muted loop id="background-video">
-        <source src="<?=base_url()?>/media/videos/home.mp4" type="video/mp4">
+        <source src="<?=base_url()?>/media/videos/BestPractiseVideo.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     <div class="video-content">
-        <h3>Stress Releief Best Practises</h3>
-        <ul>
-        <?
-         if($quot)
-         {
-            foreach($quot as $row)
-            {?>
-                <li><b><?=$row->title?> : </b><?=$row->description?></li>
-            <?}
-         }
-        ?>
-        </ul>
+        <div class ="content">
+            <h1 class="heading">Stress Relief Best Practises</h1>
+            <ul>
+            <?
+            if($quot)
+            {
+                foreach($quot as $row)
+                {?>
+                    <li><b><?=$row->title?> : </b><?=$row->description?></li>
+                <?}
+            }
+            ?>
+            </ul>
+        </div>
     </div>
 </section>
 

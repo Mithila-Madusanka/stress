@@ -130,6 +130,8 @@
         xhr.onload = function() {
             var response = xhr.responseText;
             response = parseFloat(response);
+
+            alert(response);
             
             var cat = '';
             var stress_level = '';
