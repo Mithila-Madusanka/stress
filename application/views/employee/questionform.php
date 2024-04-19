@@ -1,6 +1,30 @@
 <?$this->load->view("includes/header.php")?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
 <style>
+    .modal {
+        display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+           
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 900px /* Set width to 80% of viewport width */
+            /* Set max height to 80% of viewport height */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+
     .formdiv{
         border:2px solid black;
         padding:30px;
@@ -63,10 +87,25 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
 </style>
 <script>
     function predict_stress_level()
     {   
+        var modal = document.getElementById("userModel");
+        modal.style.display = "block";
+
 		var gender = $("#gender").val();
 		var dob = $("#dob").val();
 		var sleep_duration = $("#sleep").val();
@@ -91,9 +130,91 @@
         xhr.onload = function() {
             var response = xhr.responseText;
             response = parseFloat(response);
+
+            alert(response);
+            
+            var cat = '';
+            var stress_level = '';
+            if(response == 7 || response == 8)
+            {   
+                cat = '<p style="color:#dc3545">High</p>';
+                stress_level = 'HIGH';
+            }
+            else if(response == 4 || response == 5 || response == 6)
+            {   
+                cat = '<p style="color:#ffc107">Mid</p>';
+                stress_level = 'MID';
+            }
+            else if(response == 1 || response == 2 || response == 3)
+            {
+                cat = '<p style="color:#28a745">Low</p>';
+                stress_level = 'LOW';
+            }
+               
+            $("#stress_level_cat").html(cat);
+            $("#level_val").val(stress_level);
             updateProgressBar(response*10);
+            // loadQuota(stress_level);
+            if(stress_level == "MID" || stress_level == "HIGH")
+            {
+                $("#musiclistendiv").show();
+            }
+
+            if(stress_level == "HIGH")
+            {
+                $("#mobilenumdiv").show();
+            }
         };
         xhr.send(formData);
+    }
+
+    function loadQuota(stress_level)
+    {   
+        var formData = new FormData();
+        formData.append('level', stress_level);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'get_stress_level_quota/', true);
+        xhr.onload = function() {
+            var response = xhr.responseText;
+            $("#bestpractiseview").html(response);
+        };
+        xhr.send(formData);
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("userModel");
+        modal.style.display = "none";
+    }
+
+    // Close the modal if user clicks outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById("userModel");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function show_mobile_num_input()
+    {   
+        // Get the checkbox
+        var checkBox = document.getElementById("mobnumbcheck");
+
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true){
+            $("#mobilenuminput").show();
+        } else {
+            $("#mobilenuminput").css('display', 'none');
+        }
+    }
+
+    function show_stress_relief_best_practices()
+    {
+        var level_val = $("#level_val").val();
+        if(level_val != '')
+        {
+            var url = "<?=base_url()?>/Common/show_stress_relief_best_practices/"+level_val;
+            window.open(url, '_blank')
+        }
     }
 </script>
 <div class="container-fluid">
@@ -121,7 +242,12 @@
                     <input type="number" id="sleep" class="form-control" placeholder="No of Hours">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect2">Qualtiy of Sleep</label>
+                    <label for="exampleFormControlSelect2">Qualtiy of Sleep
+                    <i class="fa fa-info-circle" aria-hidden="true" title="
+                        Actual Sleep Time Duration
+Example : Go to the bed at 9.pm but you don't sleep until 11pm and you awoke up at 7am.
+Quality of Sleep = 8 Hours"></i>
+                    </label>
                     <input type="number" id="sleepqlty" class="form-control" placeholder="No of Hours Deep Sleeping">
                 </div>
                 <div class="form-group">
@@ -152,6 +278,59 @@
             </form>
             </div>
 
+            <div class="col-md-2"></div>
+
+            <div class="modal" id="userModel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" onclick="closeModal()" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="stress-meter">
+                        <h2 class="text-center mb-4">Hi! <?=$this->session->userdata('username')?> Your Stress Level is <span id="stress_level_cat"></span></h2>
+                            <div class="progress" id="stress-progress">
+                            <div id="loading-bar"></div>
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="stress-level"></div>
+                        </div>
+                    </div>
+                </div>
+                <inpu type="hidden" id="level_val" name="level_val" value="">
+                    <div id="mobilenumdiv" style="display:none;">
+                        <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
+                        <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
+                        <div id="mobilenuminput" style="display:none">
+                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" placeholder="Mobile Number 1"><br>
+                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" placeholder="Mobile Number 2">
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="musiclistendiv" style="display:none;">
+                        <p>Music provides a comprehensive way to relieve stress, addressing both physical and emotional aspects.</p><br>
+                        <p>Do You Like to Listen Music : <a type="button" target="_blank" class="btn btn-primary" href="<?=base_url()?>/Common/get_stress_reduce_music">Yes</a></p>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>Music provides a comprehensive way to relieve stress, addressing both physical and emotional aspects.</p><br>
+                        <p>Do You Like to View Stress Relief Best Practices : <button type="button" class="btn btn-primary" onclick="show_stress_relief_best_practices()">Yes</button></p>
+                    </div>
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                </div>
+
+                </div>
+            </div>
+            </div>
+
+            <!--
+
             <div class="container" id="stressdiv">
                 <div id="stress-meter">
                     <h2 class="text-center mb-4">Your Stress Level</h2>
@@ -162,7 +341,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>-->
     </div>
 </div>
 

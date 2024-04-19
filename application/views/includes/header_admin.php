@@ -117,13 +117,13 @@
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/profiles" aria-expanded="false"><i
                                     class="fa fa-user-circle-o"></i><span class="hide-menu">Admin Profiles</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/add_stress_level_low" aria-expanded="false"><i
                                     class="fa fa-pencil"></i><span class="hide-menu">Low Stress Level</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/add_stress_level_mid" aria-expanded="false"><i
                                     class="fa fa-pencil"></i><span class="hide-menu">Mid Stress Level</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/add_stress_level_high" aria-expanded="false"><i
                                     class="fa fa-pencil"></i><span class="hide-menu">High Stress Level</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Admin/logOut" aria-expanded="false"><i

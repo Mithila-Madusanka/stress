@@ -35,5 +35,26 @@ class Menu extends CI_Controller {
         $this->load->view('admin/profiles', $data);
     }
 
+	function add_stress_level_low()
+	{	
+		$data['level'] = $level = 'LOW'; 
+		$data['datalist'] = $this->Admin_model->get_quota_by_level($level);
+		$this->load->view('admin/add_stress_level', $data);
+	}
+
+	function add_stress_level_mid()
+	{	
+		$data['level'] = $level = 'MID'; 
+		$data['datalist'] = $this->Admin_model->get_quota_by_level($level);
+		$this->load->view('admin/add_stress_level', $data);
+	}
+
+	function add_stress_level_high()
+	{	
+		$data['level'] = $level = 'HIGH'; 
+		$data['datalist'] = $this->Admin_model->get_quota_by_level($level);
+		$this->load->view('admin/add_stress_level', $data);
+	}
+
 	
 }
