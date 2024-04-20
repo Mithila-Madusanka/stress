@@ -56,7 +56,7 @@
         <input type="email"  class="form-control" id="email" name="email" value="<?=$admin->email?>" placeholder="Email Address" required autocomplete="off">
     </div>
     <div class="form-group">
-        <input type="password"  class="form-control" id="password" name="password" value="<?=$admin->password?>" placeholder="Password" required autocomplete="off">
+        <input type="password"  class="form-control" id="password" name="password" value="<?=$this->encryption->decrypt($admin->password)?>" placeholder="Password" required autocomplete="off">
     </div>
     <div class="form-group">
         <input type="submit"  class="btn btn-lg btn-primary" id="password" name="password" value="Update">

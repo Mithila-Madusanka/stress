@@ -245,6 +245,7 @@
         <!-- Form on the right side -->
         <div class="col-md-8">
              <div id="usernamediv">Hi! <?=$this->session->userdata('username')?></div>
+             <input type="hidden" id="name_of_user" name="name_of_user" value="<?=$this->session->userdata('username')?>">
             <div class="formdiv">
                 <form>
                     <div class="form-group" style="margin-top:30px;">

@@ -63,7 +63,7 @@ class User extends CI_Controller {
                 'name' => $name,
                 'email' => $email,
                 'mobile' => $mobile,
-                'password' => $password,
+                'password' => $this->encryption->encrypt($password),
                 'user_type' => $user_type,
                 'registered_at' => date("Y-m-d H:i:s"),
             );

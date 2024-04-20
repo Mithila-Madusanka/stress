@@ -46,6 +46,11 @@ body {
 .profile-image img {
   margin-left: 3px;
 }
+
+.modal{
+	margin-top:150px
+}
+
 </style>
 <center><h4><?=$emo_desc?></h4></center>
 <div class="list-group">
@@ -96,28 +101,46 @@ else
 }?>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+
+
+<div class="modal" id="exampleModal">
+    <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" id="modal_title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-	  	<iframe width="550" id="iframediv" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-		</iframe>
-		<div id="modalValue"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+<!-- Modal Header -->
+<div class="modal-header">
+    <h4 class="modal-title"></h4>
+    <button type="button" onclick="closeModal()" class="close" data-dismiss="modal">&times;</button>
 </div>
+
+<!-- Modal body -->
+<div class="modal-body">
+	<iframe width="480" id="iframediv" height="250" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+	</iframe>
+	<div id="modalValue"></div>
+</div>
+
+<!-- Modal footer -->
+<div class="modal-footer">
+	<button type="button" onclick="closeModal()" class="btn btn-danger" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
 <script>
+
+	function closeModal() {
+        var modal = document.getElementById("exampleModal");
+        modal.style.display = "none";
+    }
+
+    // Close the modal if user clicks outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById("exampleModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
 	function set_song_name(song_name, videoid)
 	{	
