@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(base_url()."notify_sms/autoload.php");
+require_once(__DIR__ . '/vendor/autoload.php');
 
 /**
  * Converts D/C to Dr / Cr
@@ -21,7 +21,7 @@ if ( ! function_exists('send_sms'))
         $user_id = "26984"; // string | API User ID - Can be found in your settings page.
         $api_key = "PKKetWt76DJA3wMcHB50"; // string | API Key - Can be found in your settings page.
         $message = "Test Message"; // string | Text of the message. 320 chars max.
-        $to = "94765870700"; // string | Number to send the SMS. Better to use 9471XXXXXXX format.
+        $to = "94769763520"; // string | Number to send the SMS. Better to use 9471XXXXXXX format.
         $sender_id = "NotifyDEMO"; // string | This is the from name recipient will see as the sender of the SMS. Use \\\"NotifyDemo\\\" if you have not ordered your own sender ID yet.
         $contact_fname = ""; // string | Contact First Name - This will be used while saving the phone number in your Notify contacts (optional).
         $contact_lname = ""; // string | Contact Last Name - This will be used while saving the phone number in your Notify contacts (optional).
