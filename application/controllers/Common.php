@@ -153,9 +153,25 @@ class Common extends CI_Controller {
 
 	}
 
-	function test()
-	{
-		send_sms();
+	function send_sms_to_realtives()
+	{	
+		$mobile = $this->input->post('usermobile');
+		$mobilenum1 = $this->input->post('mobilenum1');
+		$mobilenum2 = $this->input->post('mobilenum2');
+		$name = $this->input->post('name');
+		
+		$msg = "Hello, This is ".$name."'s stress management app, Mind Cool. We're reaching out to let you know that ".$name." is currently experiencing elevated stress levels. If you could reach out to them and offer support, it would mean a lot. Here's their contact number: +".$mobile.". Thank you for being there for them.";
+
+		if($mobile != '')
+		{
+			if($mobilenum1 != '')
+				send_sms($mobilenum1, $msg);
+			
+			if($mobilenum2 != '')
+				send_sms($mobilenum2, $msg);
+		}
+
+		echo "Ok";
 	}
 
     
