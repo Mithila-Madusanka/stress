@@ -207,6 +207,37 @@
             window.open(url, '_blank')
         }
     }
+
+    function send_sms()
+    {
+        var usermobile = $("#usermobile").val();
+        var mobilenum1 = $("#mobilenum1").val();
+        var mobilenum2 = $("#mobilenum2").val();
+        var name = $("#name_of_user").val();
+
+        if(usermobile != '')
+        {
+            if(mobilenum1 != '')
+            {
+                var formData = new FormData();
+                formData.append('usermobile', usermobile);
+                formData.append('mobilenum1', mobilenum1);
+                formData.append('mobilenum2', mobilenum2);
+                formData.append('name', name);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'send_sms_to_realtives/', true);
+                xhr.onload = function() {
+                    var response = xhr.responseText;
+                    $("#mobilenuminput").html("<img src='<?=base_url()?>media/images/sucess.gif'/>");
+                };
+                xhr.send(formData);
+            }
+            else
+                alert("At least one mobile number is Required");
+        }
+        else
+         alert("Your Mobile Number is Required");
+    }
 </script>
 <div class="container-fluid">
     <div class="row">
@@ -301,8 +332,10 @@ Community Service."></i> </label>
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
                         <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
                         <div id="mobilenuminput" style="display:none">
-                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" placeholder="Mobile Number 1"><br>
-                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" placeholder="Mobile Number 2">
+                            <input type="text" class="form-control" id="usermobile" name="usermobile" placeholder="Enter Your Mobile Number (Ex: 9476xxxxxx)"><br>
+                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" placeholder="Mobile Number 1 (Ex: 9476xxxxxx)"><br>
+                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" placeholder="Mobile Number 2 (Ex: 9476xxxxxx)"><br>
+                            <button type="button" class="btn btn-primary" onclick="send_sms()">Send SMS</button>
                         </div>
                     </div>
                     <hr>
