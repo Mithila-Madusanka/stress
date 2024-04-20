@@ -86,9 +86,10 @@ class Common extends CI_Controller {
 			$bmi_category = 0; //Normal
 
 		//Calculate Age
-		$diff = date_diff(date_create($dob), date_create(date("d/m/Y")));
+		$diff = date_diff(date_create($dob), date_create(date("Y-m-d")));
 		$age = $diff->format('%y');
 		$age = intval($age);
+
 
 		if($gender == "Male")
 			$gender = 1;
@@ -106,8 +107,8 @@ class Common extends CI_Controller {
 		$input_data = json_encode($input_data);
 		$prdeiction = predict_employee_stress_level($input_data);
 		$data = json_decode($prdeiction, true);
-		// echo $data['predicted_stress_level'];
-		echo $height_meters;
+		echo $data['predicted_stress_level'];
+		
 	}
 
 	function get_stress_reduce_music()

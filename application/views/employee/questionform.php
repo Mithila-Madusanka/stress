@@ -130,8 +130,6 @@
         xhr.onload = function() {
             var response = xhr.responseText;
             response = parseFloat(response);
-
-            alert(response);
             
             var cat = '';
             var stress_level = '';
@@ -153,7 +151,8 @@
                
             $("#stress_level_cat").html(cat);
             $("#level_val").val(stress_level);
-            updateProgressBar(response*10);
+            $("#level_num").val(response);
+            updateProgressBar(response*12.5);
             // loadQuota(stress_level);
             if(stress_level == "MID" || stress_level == "HIGH")
             {
@@ -219,19 +218,19 @@
 </script>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2"></div>        
+        <div class="col-md-4"></div>        
         <!-- Form on the right side -->
-        <div class="col-md-8">
+        <div class="col-md-4">
              <div id="usernamediv">Hi! <?=$this->session->userdata('username')?></div>
             <div class="formdiv">
             <form>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Date Of Birth</label>
-                    <input type="date" class="form-control" id="dob" placeholder="Date Of Birth">
+                    <input type="date" class="form-control" id="dob" placeholder="Date Of Birth" style="width:300px;">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Gender</label>
-                    <select class="form-control" id="gender">
+                    <select class="form-control" id="gender" style="width:300px;">
                         <option>Select Your Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -239,7 +238,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Sleep Duration</label>
-                    <input type="number" id="sleep" class="form-control" placeholder="No of Hours">
+                    <input type="number" id="sleep" class="form-control" placeholder="No of Hours" style="width:300px;">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Qualtiy of Sleep
@@ -248,23 +247,23 @@
 Example : Go to the bed at 9.pm but you don't sleep until 11pm and you awoke up at 7am.
 Quality of Sleep = 8 Hours"></i>
                     </label>
-                    <input type="number" id="sleepqlty" class="form-control" placeholder="No of Hours Deep Sleeping">
+                    <input type="number" id="sleepqlty" class="form-control" placeholder="No of Hours Deep Sleeping" style="width:300px;">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Weight (Kg)</label>
-                    <input type="number" id="weight" class="form-control" placeholder="Enter Weight By Kilograms">
+                    <input type="number" id="weight" class="form-control" placeholder="Enter Weight By Kilograms" style="width:300px;">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Height (Feet)</label>
-                    <input type="number" id="height" class="form-control" placeholder="Enter Height By Feets">
+                    <input type="number" id="height" class="form-control" placeholder="Enter Height By Feets" style="width:300px;">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Daily Steps</label>
-                    <input type="number" id="steps" class="form-control" placeholder="Daily Steps">
+                    <input type="number" id="steps" class="form-control" placeholder="Daily Steps" style="width:300px;">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Sleep Disorders</label>
-                    <select class="form-control" id="sleepdisorder" required>
+                    <select class="form-control" id="sleepdisorder" required style="width:300px;">
                         <option>Select Your Disorders</option>
                         <option value="None">None</option>
                         <option value="Insomnia">Insomnia</option>
@@ -278,7 +277,7 @@ Quality of Sleep = 8 Hours"></i>
             </form>
             </div>
 
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
 
             <div class="modal" id="userModel">
             <div class="modal-dialog">
@@ -289,7 +288,7 @@ Quality of Sleep = 8 Hours"></i>
                     <h4 class="modal-title"></h4>
                     <button type="button" onclick="closeModal()" class="close" data-dismiss="modal">&times;</button>
                 </div>
-
+                <form method="POST" action="<?=base_url()?>User/create_user">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div id="stress-meter">
@@ -300,7 +299,9 @@ Quality of Sleep = 8 Hours"></i>
                         </div>
                     </div>
                 </div>
-                <inpu type="hidden" id="level_val" name="level_val" value="">
+                <input type="hidden" id="level_val" name="level_val" value="">
+                <input type="hidden" id="level_num" name="level_num" value="">
+                <input type="hidden" id="user_type" name="user_type" value="EMPLOYEE">
                     <div id="mobilenumdiv" style="display:none;">
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
                         <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
@@ -323,8 +324,9 @@ Quality of Sleep = 8 Hours"></i>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <p>Do you like to save your current status ? <button type="submit" class="btn btn-primary">Yes</button> <a href="<?=base_url()?>Home" class="btn btn-danger">No</a></p>
                 </div>
-
+                </form>
                 </div>
             </div>
             </div>
