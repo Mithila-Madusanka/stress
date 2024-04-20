@@ -83,7 +83,7 @@ a, a:hover, a:focus, a:active {
         <ul>
             <li><a href="<?=base_url()?>">Home</a></li>
             <li><a href="<?=base_url()?>/common/about">About</a></li>
-            <li><a href="<?=base_url()?>/login/user">My Account</a></li>
+            <li><a href="<?=base_url()?>/login/user" target="_blank">My Account</a></li>
         </ul>
     </nav>
 </header>

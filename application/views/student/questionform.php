@@ -135,6 +135,7 @@
             $("#stress_level_cat").html(cat);
             updateProgressBar(response*20);
             $("#level_val").val(stress_level);
+            $("#level_num").val(response);
             if(stress_level == "MID" || stress_level == "HIGH")
             {
                 $("#musiclistendiv").show();
@@ -283,6 +284,7 @@ Community Service."></i> </label>
                     <button type="button" onclick="closeModal()" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
+                <form method="POST" action="<?=base_url()?>User/create_user">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div id="stress-meter">
@@ -293,6 +295,8 @@ Community Service."></i> </label>
                         </div>
                     </div>
                     <inpu type="hidden" id="level_val" name="level_val" value="">
+                    <input type="hidden" id="level_num" name="level_num" value="">
+                    <input type="hidden" id="user_type" name="user_type" value="STUDENT">
                     <div id="mobilenumdiv" style="display:none;">
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
                         <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
@@ -318,8 +322,9 @@ Community Service."></i> </label>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                <p>Do you like to save your current status ? <button type="submit" class="btn btn-primary">Yes</button> <a href="<?=base_url()?>Home" class="btn btn-danger">No</a></p>
                 </div>
-
+                </form>
                 </div>
             </div>
 
