@@ -50,10 +50,16 @@ class User_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('user');
         $this->db->where('email', $email);
-        $this->db->where('password', $password);
 		$query = $this->db->get();
 		if($query->num_rows() > 0)
-			return $query->row();
+        {
+            $data =  $query->row();
+
+			if($this->encryption->decrypt($data->password) == $password)
+				return $data;
+			else
+				return false;
+        }
 		else
 			return false;
 	}

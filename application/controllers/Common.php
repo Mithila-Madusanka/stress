@@ -172,8 +172,10 @@ class Common extends CI_Controller {
 		}
 
 		echo "Ok";
-	}
-
-    
+	}    
 	
+	function test()
+	{
+		echo password_hash('1234', PASSWORD_DEFAULT);
+	}
 }
