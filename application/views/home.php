@@ -103,7 +103,7 @@
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="setName()" id="nextButton" data-toggle="modal" data-target="#userTypeModal" disabled>
-        Next <i class="fas fa-arrow-right"></i>
+        Next <i class="fa fa-arrow-right"></i>
         </button>
       </div>
 
@@ -140,7 +140,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">
-            Next <i class="fas fa-arrow-right"></i>
+            Next <i class="fa fa-arrow-right"></i>
           </button>
         </div>
       </form>

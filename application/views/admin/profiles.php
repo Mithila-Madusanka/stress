@@ -35,6 +35,32 @@
     {
         $("#confirmModel").fadeOut();
     }
+
+    function passowrd_retype(val)
+    {   
+        
+        var password =  $("#password").val();
+        $("#passwordreerr").html('');
+        $("#passwordreerr").css('display','none');
+        if(password != val)
+        {   
+            $("#passwordreerr").show();
+            $("#passwordreerr").html("Not Matching With Your Password!");
+        }
+    }
+
+    function cheracter_count(val)
+    {   
+        
+        $("#passworderr").html('');
+        $("#passworderr").css('display','none');
+        if(val.length < 8)
+        {   
+            $("#passworderr").show();
+            $("#passworderr").html("Password Must Containt At Least 8 Characters!");
+            $("#password").val('');
+        }
+    }
 </script>
 </br></br>
 <h3>Admin Profiles</h3>
@@ -123,7 +149,7 @@
                 <input type="text"  class="form-control" id="nic" name="nic" placeholder="NIC No" required autocomplete='off'>
             </div>
             <div class="form-group">
-                <select class="form-control" id="type" name="type">
+                <select class="form-control" id="type" name="type" required>
                     <option value="">Select User Type</option>
                     <option value="SUPER">Super User</option>
                     <option value="NORMAL">Normal User</option>
@@ -133,7 +159,12 @@
                 <input type="email"  class="form-control" id="email" name="email" placeholder="Email Address" required autocomplete="off">
             </div>
             <div class="form-group">
-                <input type="password"  class="form-control" id="password" name="password" placeholder="Password" required autocomplete="off">
+                <input type="password"  class="form-control" id="password" name="password" onchange="cheracter_count(this.value)" placeholder="Password" required autocomplete="off">
+                <span id="passworderr" style="color:red;font-size:10pt;margin-left:10px; display:none;"></span>
+            </div>
+            <div class="form-group">
+                <input type="password"  class="form-control" id="repassword" name="repassword" onkeyup="passowrd_retype(this.value)" placeholder="Re Type Password" required autocomplete="off">
+                <span id="passwordreerr" style="color:red;font-size:10pt;margin-left:10px; display:none;"></span>
             </div>
         </div>
 

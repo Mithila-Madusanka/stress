@@ -28,7 +28,8 @@
     .formdiv{
         border:2px solid black;
         padding:30px;
-        margin-top:30px;
+        margin-top:5px;
+        margin-bottom:10px;
         border-radius: 25px;
         background:#CBD6E2;
     }
@@ -89,7 +90,6 @@
         }
 
         h1 {
-            color: #333;
             text-align: center;
         }
         ul {
@@ -103,8 +103,7 @@
 <script>
     function predict_stress_level()
     {   
-        var modal = document.getElementById("userModel");
-        modal.style.display = "block";
+
 
 		var gender = $("#gender").val();
 		var dob = $("#dob").val();
@@ -115,56 +114,138 @@
 		var daily_steps = $("#steps").val();
 		var sleep_disorder = $("#sleepdisorder").val();
 
+        $("#errorgender").html('');
+        $("#errordob").html('');
+        $("#errorsleep_duration").html('');
+        $("#errorquality_sleep").html('');
+        $("#errorheight").html('');
+        $("#errorweight").html('');
+        $("#errordaily_steps").html('');
+        $("#errorsleep_disorder").html('');
 
-        var formData = new FormData();
-        formData.append('gender', gender);
-        formData.append('dob', dob);
-        formData.append('sleep_duration', sleep_duration);
-        formData.append('quality_sleep', quality_sleep);
-        formData.append('height', height);
-        formData.append('weight', weight);
-        formData.append('daily_steps', daily_steps);
-        formData.append('sleep_disorder', sleep_disorder);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'employee_stress_level/', true);
-        xhr.onload = function() {
-            var response = xhr.responseText;
-            response = parseFloat(response);
+        $("#errorgender").css('display', 'none');
+        $("#errordob").css('display', 'none');
+        $("#errorsleep_duration").css('display', 'none');
+        $("#errorquality_sleep").css('display', 'none');
+        $("#errorheight").css('display', 'none');
+        $("#errorweight").css('display', 'none');
+        $("#errordaily_steps").css('display', 'none');
+        $("#errorsleep_disorder").css('display', 'none');
+
+
+        var flag = true;
+        if(gender == '')
+        {   
+            $("#errorgender").show();
+            $("#errorgender").html(' Field is required! ');
+            flag = false;
+        }
             
-            var cat = '';
-            var stress_level = '';
-            if(response == 7 || response == 8)
-            {   
-                cat = '<p style="color:#dc3545">High</p>';
-                stress_level = 'HIGH';
-            }
-            else if(response == 4 || response == 5 || response == 6)
-            {   
-                cat = '<p style="color:#ffc107">Mid</p>';
-                stress_level = 'MID';
-            }
-            else if(response == 1 || response == 2 || response == 3)
-            {
-                cat = '<p style="color:#28a745">Low</p>';
-                stress_level = 'LOW';
-            }
-               
-            $("#stress_level_cat").html(cat);
-            $("#level_val").val(stress_level);
-            $("#level_num").val(response);
-            updateProgressBar(response*12.5);
-            // loadQuota(stress_level);
-            if(stress_level == "MID" || stress_level == "HIGH")
-            {
-                $("#musiclistendiv").show();
-            }
+        if(dob == '')
+        {
+            $("#errordob").show();
+            $("#errordob").html(' Field is required! ');
+            flag = false;
+        }
 
-            if(stress_level == "HIGH")
-            {
-                $("#mobilenumdiv").show();
-            }
-        };
-        xhr.send(formData);
+        if(sleep_duration == '')
+        {
+            $("#errorsleep_duration").show();
+            $("#errorsleep_duration").html(' Field is required! ');
+            flag = false;
+        }
+
+        if(quality_sleep == '')
+        {
+            $("#errorquality_sleep").show();
+            $("#errorquality_sleep").html(' Field is required! ');
+            flag = false;
+        }
+
+        if(height == '')
+        {
+            $("#errorheight").show();
+            $("#errorheight").html(' Field is required! ');
+            flag = false;
+        }
+
+        if(weight == '')
+        {
+            $("#errorweight").show();
+            $("#errorweight").html(' Field is required! ');
+            flag = false;
+        }
+
+        if(daily_steps == '')
+        {
+            $("#errordaily_steps").show();
+            $("#errordaily_steps").html(' Field is required! ');
+            flag = false;
+        }
+
+        if(sleep_disorder == '')
+        {
+            $("#errorsleep_disorder").show();
+            $("#errorsleep_disorder").html(' Field is required! ');
+            flag = false;
+        }
+
+        if(flag)
+        {   
+            var modal = document.getElementById("userModel");
+            modal.style.display = "block";
+
+            var formData = new FormData();
+            formData.append('gender', gender);
+            formData.append('dob', dob);
+            formData.append('sleep_duration', sleep_duration);
+            formData.append('quality_sleep', quality_sleep);
+            formData.append('height', height);
+            formData.append('weight', weight);
+            formData.append('daily_steps', daily_steps);
+            formData.append('sleep_disorder', sleep_disorder);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'employee_stress_level/', true);
+            xhr.onload = function() {
+                var response = xhr.responseText;
+                response = parseFloat(response);
+                
+                var cat = '';
+                var stress_level = '';
+                if(response == 7 || response == 8)
+                {   
+                    cat = '<p style="color:#dc3545">High</p>';
+                    stress_level = 'HIGH';
+                }
+                else if(response == 4 || response == 5 || response == 6)
+                {   
+                    cat = '<p style="color:#ffc107">Mid</p>';
+                    stress_level = 'MID';
+                }
+                else if(response == 1 || response == 2 || response == 3)
+                {
+                    cat = '<p style="color:#28a745">Low</p>';
+                    stress_level = 'LOW';
+                }
+                
+                $("#stress_level_cat").html(cat);
+                $("#level_val").val(stress_level);
+                $("#level_num").val(response);
+                updateProgressBar(response*12.5);
+                // loadQuota(stress_level);
+                if(stress_level == "MID" || stress_level == "HIGH")
+                {
+                    $("#musiclistendiv").show();
+                }
+
+                if(stress_level == "HIGH")
+                {
+                    $("#mobilenumdiv").show();
+                }
+            };
+            xhr.send(formData);
+        }
+
     }
 
     function loadQuota(stress_level)
@@ -223,6 +304,12 @@
         var mobilenum2 = $("#mobilenum2").val();
         var name = $("#name_of_user").val();
 
+        $("#errormsgmymob").html('');
+        $("#errormsgfirstmob").html('');
+
+        $("#errormsgmymob").css('display', 'none');
+        $("#errormsgfirstmob").css('display', 'none');
+
         if(usermobile != '')
         {
             if(mobilenum1 != '')
@@ -240,11 +327,62 @@
                 };
                 xhr.send(formData);
             }
-            else
-                alert("At least one mobile number is Required");
+            else{
+                $("#errormsgfirstmob").show();
+                $("#errormsgfirstmob").html('At least one mobile number is Required');
+            }
+        }
+        else{
+            $("#errormsgmymob").show();
+            $("#errormsgmymob").html('Your Mobile Number is Required');
+        }
+    }
+
+    function check_sleep_quality(value)
+    {   
+        var sleep = $('#sleep').val();
+        if(parseFloat(value) > parseFloat(sleep))
+        {
+            $("#errorquality_sleep").show();
+            $("#errorquality_sleep").html('Quality of Sleep must be less than sleep duration');
+            $("#sleepqlty").val('');
         }
         else
-         alert("Your Mobile Number is Required");
+        {   
+            $("#errorquality_sleep").html('');
+            $("#errorquality_sleep").css('display','none');
+        }
+    }
+
+    function mobile_num_check(value, type)
+    {   
+        if(type == "MY")
+        {
+            error = "errormsgmymob";
+            id="usermobile";
+        }
+        else if(type == "FIRST")
+        {
+            error = "errormsgfirstmob";
+            id="mobilenum1";
+        }
+        else if(type == "SECOND")
+        {
+            error = "errormsgsecondmob";
+            id="mobilenum2";
+        }
+        
+        if(value.length != 11)
+        {   
+            $("#"+error).show();
+            $("#"+error).html("Please Enter Valid Mobile Number!");
+            $("#"+id).val('');
+        }
+        else
+        {
+            $("#"+error).html('');
+            $("#"+error).css('display','none');
+        }
     }
 </script>
 <div class="container-fluid">
@@ -259,18 +397,21 @@
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Date Of Birth</label>
                     <input type="date" class="form-control" id="dob" placeholder="Date Of Birth" style="width:300px;">
+                    <span id="errordob" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Gender</label>
                     <select class="form-control" id="gender" style="width:300px;">
-                        <option>Select Your Gender</option>
+                        <option value="">Select Your Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
+                    <span id="errorgender" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Sleep Duration</label>
                     <input type="number" id="sleep" class="form-control" placeholder="No of Hours" style="width:300px;">
+                    <span id="errorsleep_duration" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Qualtiy of Sleep
@@ -279,28 +420,33 @@
 Example : Go to the bed at 9.pm but you don't sleep until 11pm and you awoke up at 7am.
 Quality of Sleep = 8 Hours"></i>
                     </label>
-                    <input type="number" id="sleepqlty" class="form-control" placeholder="No of Hours Deep Sleeping" style="width:300px;">
+                    <input type="number" id="sleepqlty" class="form-control" onchange="check_sleep_quality(this.value)" placeholder="No of Hours Deep Sleeping" style="width:300px;">
+                    <span id="errorquality_sleep" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Weight (Kg)</label>
                     <input type="number" id="weight" class="form-control" placeholder="Enter Weight By Kilograms" style="width:300px;">
+                    <span id="errorweight" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Height (Feet)</label>
                     <input type="number" id="height" class="form-control" placeholder="Enter Height By Feets" style="width:300px;">
+                    <span id="errorheight" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Daily Steps</label>
                     <input type="number" id="steps" class="form-control" placeholder="Daily Steps" style="width:300px;">
+                    <span id="errordaily_steps" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Sleep Disorders</label>
                     <select class="form-control" id="sleepdisorder" required style="width:300px;">
-                        <option>Select Your Disorders</option>
+                        <option value="">Select Your Disorders</option>
                         <option value="None">None</option>
                         <option value="Insomnia">Insomnia</option>
                         <option value="Sleep Apnea">Sleep Apnea</option>
                     </select>
+                    <span id="errorsleep_disorder" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div style="float:right;">
                     <button type="button" onclick="predict_stress_level()" class="btn btn-lg btn-primary">Complete</button>
@@ -338,9 +484,12 @@ Quality of Sleep = 8 Hours"></i>
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
                         <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
                         <div id="mobilenuminput" style="display:none">
-                            <input type="text" class="form-control" id="usermobile" name="usermobile" placeholder="Enter Your Mobile Number (Ex: 9476xxxxxx)"><br>
-                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" placeholder="Mobile Number 1 (Ex: 9476xxxxxx)"><br>
-                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" placeholder="Mobile Number 2 (Ex: 9476xxxxxx)"><br>
+                            <input type="text" class="form-control" id="usermobile" name="usermobile" onchange="mobile_num_check(this.value, 'MY')" placeholder="Enter Your Mobile Number (Ex: 9476xxxxxx)">
+                            <span id="errormsgmymob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
+                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" onchange="mobile_num_check(this.value, 'FIRST')" placeholder="Mobile Number 1 (Ex: 9476xxxxxx)">
+                            <span id="errormsgfirstmob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
+                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" onchange="mobile_num_check(this.value, 'SECOND')" placeholder="Mobile Number 2 (Ex: 9476xxxxxx)">
+                            <span id="errormsgsecondmob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
                             <button type="button" class="btn btn-primary" onclick="send_sms()">Send SMS</button>
                         </div>
                     </div>
