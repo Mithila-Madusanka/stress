@@ -33,6 +33,7 @@ class User extends CI_Controller {
 	{
         $data['stress_level'] = $this->input->post('level_num');
         $data['user_type'] = $this->input->post('user_type');
+        $data['name_of_user'] = $this->input->post('user_name');
         $this->load->view('users/register_user', $data);
 	}
 

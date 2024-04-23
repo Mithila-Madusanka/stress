@@ -92,62 +92,81 @@
 <script>
     function predict_stress_level()
     {   
-        var modal = document.getElementById("userModel");
-        modal.style.display = "block";
-
         var sleep_quality = $("#sleepQltySlider").val();
         var accedmic = $("#accedmicPrefSlider").val();
         var study = $("#studyLoadSlider").val();
         var hedaches = $("#hedaches").val();
         var extractivities = $("#extractivities").val();
 
+        $("#errormsgheadches").html('');
+        $("#errormsgextra").html('');
 
-        var formData = new FormData();
-        formData.append('sleep_quality', sleep_quality);
-        formData.append('accedmic', accedmic);
-        formData.append('study', study);
-        formData.append('hedaches', hedaches);
-        formData.append('extractivities', extractivities);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'student_stress_level/', true);
-        xhr.onload = function() {
-            var response = xhr.responseText;
-            response = parseFloat(response);
+        var flag = true;
+        if(hedaches == '')
+        {   
+            $("#errormsgheadches").html(' Field is required! ');
+            flag = false;
+        }
+            
+        if(extractivities == '')
+        {
+            $("#errormsgextra").html(' Field is required! ');
+            flag = false;
+        }
 
-            var cat = '';
-            var stress_level = '';
-            if(response == 4 || response == 5)
-            {   
-                cat = '<p style="color:#dc3545">High</p>';
-                stress_level = 'HIGH';
-            }
-            else if(response == 3)
-            {   
-                cat = '<p style="color:#ffc107">Mid</p>';
-                stress_level = 'MID';
-            }
-            else if(response == 1 || response == 2)
-            {
-                cat = '<p style="color:#28a745">Low</p>';
-                stress_level = 'LOW';
-            }
-               
-            $("#stress_level_cat").html(cat);
-            updateProgressBar(response*20);
-            $("#level_val").val(stress_level);
-            $("#level_num").val(response);
-            if(stress_level == "MID" || stress_level == "HIGH")
-            {
-                $("#musiclistendiv").show();
-            }
+        if(flag)
+        {   
+            var modal = document.getElementById("userModel");
+            modal.style.display = "block";
 
-            if(stress_level == "HIGH")
-            {
-                $("#mobilenumdiv").show();
-            }
-            // loadQuota(stress_level);
-        };
-        xhr.send(formData);
+            var formData = new FormData();
+            formData.append('sleep_quality', sleep_quality);
+            formData.append('accedmic', accedmic);
+            formData.append('study', study);
+            formData.append('hedaches', hedaches);
+            formData.append('extractivities', extractivities);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'student_stress_level/', true);
+            xhr.onload = function() {
+                var response = xhr.responseText;
+                response = parseFloat(response);
+
+                var cat = '';
+                var stress_level = '';
+                if(response == 4 || response == 5)
+                {   
+                    cat = '<p style="color:#dc3545">High</p>';
+                    stress_level = 'HIGH';
+                }
+                else if(response == 3)
+                {   
+                    cat = '<p style="color:#ffc107">Mid</p>';
+                    stress_level = 'MID';
+                }
+                else if(response == 1 || response == 2)
+                {
+                    cat = '<p style="color:#28a745">Low</p>';
+                    stress_level = 'LOW';
+                }
+                
+                $("#stress_level_cat").html(cat);
+                updateProgressBar(response*20);
+                $("#level_val").val(stress_level);
+                $("#level_num").val(response);
+                if(stress_level == "MID" || stress_level == "HIGH")
+                {
+                    $("#musiclistendiv").show();
+                }
+
+                if(stress_level == "HIGH")
+                {
+                    $("#mobilenumdiv").show();
+                }
+                // loadQuota(stress_level);
+            };
+            xhr.send(formData);
+        }
+
     }
 
     function loadQuota(stress_level)
@@ -215,6 +234,12 @@
         var mobilenum2 = $("#mobilenum2").val();
         var name = $("#name_of_user").val();
 
+        $("#errormsgmymob").html('');
+        $("#errormsgfirstmob").html('');
+
+        $("#errormsgmymob").css('display', 'none');
+        $("#errormsgfirstmob").css('display', 'none');
+
         if(usermobile != '')
         {
             if(mobilenum1 != '')
@@ -233,10 +258,47 @@
                 xhr.send(formData);
             }
             else
-                alert("At least one mobile number is Required");
+            {
+                $("#errormsgfirstmob").show();
+                $("#errormsgfirstmob").html('At least one mobile number is Required');
+            }
         }
         else
-         alert("Your Mobile Number is Required");
+        {
+            $("#errormsgmymob").show();
+            $("#errormsgmymob").html('Your Mobile Number is Required');
+        }
+    }
+
+    function mobile_num_check(value, type)
+    {   
+        if(type == "MY")
+        {
+            error = "errormsgmymob";
+            id="usermobile";
+        }
+        else if(type == "FIRST")
+        {
+            error = "errormsgfirstmob";
+            id="mobilenum1";
+        }
+        else if(type == "SECOND")
+        {
+            error = "errormsgsecondmob";
+            id="mobilenum2";
+        }
+        
+        if(value.length != 11)
+        {   
+            $("#"+error).show();
+            $("#"+error).html("Please Enter Valid Mobile Number!");
+            $("#"+id).val('');
+        }
+        else
+        {
+            $("#"+error).html('');
+            $("#"+error).css('display','none');
+        }
     }
 </script>
 <div class="container-fluid">
@@ -286,6 +348,7 @@
                     <div class="form-inline">
                         <label for="exampleInputEmail1" style="margin-right:15px">How many times a week do you suffer headaches ?</label>
                         <input id="hedaches" type="number" class="form-control" placeholder="Enter No of times">
+                        <span id="errormsgheadches" style="color:red;font-size:10pt;margin-left:10px;"></span>
                     </div>
                     <br/>
                     <div class="form-inline">
@@ -296,6 +359,7 @@ Performing Arts.
 Academic Clubs.
 Community Service."></i> </label>
                         <input id="extractivities" type="number" class="form-control" placeholder="Enter No of times">
+                        <span id="errormsgextra" style="color:red;font-size:10pt;margin-left:10px;"></span>
                     </div>
                     <br>
                     <div style="float:right;">
@@ -317,6 +381,7 @@ Community Service."></i> </label>
                 </div>
 
                 <form method="POST" action="<?=base_url()?>User/create_user">
+                <input type="hidden" id="user_name" name="user_name" value="<?=$this->session->userdata('username')?>">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div id="stress-meter">
@@ -333,9 +398,12 @@ Community Service."></i> </label>
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
                         <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
                         <div id="mobilenuminput" style="display:none">
-                            <input type="text" class="form-control" id="usermobile" name="usermobile" placeholder="Enter Your Mobile Number (Ex: 9476xxxxxx)"><br>
-                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" placeholder="Mobile Number 1 (Ex: 9476xxxxxx)"><br>
-                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" placeholder="Mobile Number 2 (Ex: 9476xxxxxx)"><br>
+                            <input type="text" class="form-control" id="usermobile" name="usermobile" onchange="mobile_num_check(this.value, 'MY')" placeholder="Enter Your Mobile Number (Ex: 9476xxxxxx)">
+                            <span id="errormsgmymob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
+                            <input type="text" class="form-control" id="mobilenum1" name="mobilenum1" onchange="mobile_num_check(this.value, 'FIRST')" placeholder="Mobile Number 1 (Ex: 9476xxxxxx)">
+                            <span id="errormsgfirstmob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
+                            <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" onchange="mobile_num_check(this.value, 'SECOND')" placeholder="Mobile Number 2 (Ex: 9476xxxxxx)">
+                            <span id="errormsgsecondmob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
                             <button type="button" class="btn btn-primary" onclick="send_sms()">Send SMS</button>
                         </div>
                     </div>
