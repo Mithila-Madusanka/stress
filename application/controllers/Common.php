@@ -114,7 +114,7 @@ class Common extends CI_Controller {
 	function get_stress_reduce_music()
 	{	
 
-		$query = "Stree Relief Music";
+		$query = "Relaxation Music";
 		$this->load->library('youtube');
 		$data['response'] = $this->youtube->search($query,20,'');
 		$this->load->view('music/musiclist', $data);
@@ -123,7 +123,7 @@ class Common extends CI_Controller {
 
 	function get_next_music_list($token)
 	{	
-		$query = "Stree Relief Music";
+		$query = "Relaxation Music";
 		$this->load->library('youtube');
 		$data['response'] = $this->youtube->search($query,20,$token);
 		$this->load->view('music/musiclist',$data);
