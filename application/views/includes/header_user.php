@@ -61,7 +61,7 @@
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-header">
+                <div class="navbar-header" style="border-bottom:1px solid black">
                     <a href="<?=base_url()?>User/load_dasboard" class="navbar-brand" href="index.html">
                         <h1>Mind Cool</h1>
                     </a>
@@ -109,6 +109,7 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
+                
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>User/load_dasboard" aria-expanded="false"><i

@@ -61,7 +61,7 @@
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-header">
+                <div class="navbar-header" >
                     <a href="<?=base_url()?>/Menu" class="navbar-brand" href="index.html">
                         <h1>Mind Cool</h1>
                     </a>
@@ -107,27 +107,24 @@
         <!-- ============================================================== -->
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
+            <div class="scroll-sidebar" style="background-color:black;">
                 <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
+                <nav class="sidebar-nav" style="background-color:black; margin-top:20px">
                     <ul id="sidebarnav">
-                        <li> <a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i
-                                    class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
-                        </li>
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/profiles" aria-expanded="false"><i
-                                    class="fa fa-user-circle-o"></i><span class="hide-menu">Admin Profiles</span></a>
+                                    class="fa fa-user-circle-o"></i><span class="hide-menu" style="color:white;">Admin Profiles</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/add_stress_level_low" aria-expanded="false"><i
-                                    class="fa fa-pencil"></i><span class="hide-menu">Low Stress Level</span></a>
+                                    class="fa fa-pencil"></i><span class="hide-menu" style="color:white;">Low Stress Level</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/add_stress_level_mid" aria-expanded="false"><i
-                                    class="fa fa-pencil"></i><span class="hide-menu">Mid Stress Level</span></a>
+                                    class="fa fa-pencil"></i><span class="hide-menu" style="color:white;">Mid Stress Level</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Menu/add_stress_level_high" aria-expanded="false"><i
-                                    class="fa fa-pencil"></i><span class="hide-menu">High Stress Level</span></a>
+                                    class="fa fa-pencil"></i><span class="hide-menu" style="color:white;">High Stress Level</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="<?=base_url()?>Admin/logOut" aria-expanded="false"><i
-                                    class="fa fa-sign-out"></i><span class="hide-menu">Log Out</span></a>
+                                    class="fa fa-sign-out"></i><span class="hide-menu" style="color:white;">Log Out</span></a>
                         </li>
                     </ul>
 
