@@ -75,12 +75,13 @@
     opacity: 0.7;
     padding-top:50px;
     padding-right:20px;
-    margin-top:100px;
+    margin-top:200px;
     color:black;
 }
 
 .content ul li {
     text-align: left;
+    line-height: 1.8;
 }
 
 .heading{

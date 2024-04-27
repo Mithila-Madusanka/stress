@@ -1,26 +1,78 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<?$this->load->view("includes/header.php")?>
 
-<script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
-<!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
 <style>
-    body{
-    background: url(http://mymaplist.com/img/parallax/back.png);
-	background-color: #444;
-    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-.vertical-offset-100{
-    padding-top:100px;
+.video-section {
+    position: relative;
+    height: 87vh; /* Adjust the height as needed */
+    overflow: hidden;
 }
+
+#background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.video-content {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.video-content h2 {
+    font-size: 5.2em;
+    
+}
+
+.video-content p {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+.video-content button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    cursor: pointer;
+}
+
+.container{
+	padding-top:200px;
+}
+
+
+</style>
 <head>
  <title>User Login</title>
 </head>
-</style>
-<div class="container">
-    <div class="row vertical-offset-100">
+<section class="video-section">
+    <video autoplay muted loop id="background-video">
+        <source src="<?=base_url()?>/media/videos/Login.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+	<div class="container">
+   	 <div class="row vertical-offset-100">
     	<div class="col-md-4 col-md-offset-4">
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
@@ -51,6 +103,8 @@
 		</div>
 	</div>
 </div>
+</section>
+<?$this->load->view("includes/footer.php")?>
 <script>
     $(document).ready(function(){
   $(document).mousemove(function(e){

@@ -306,7 +306,7 @@
         <div class="col-md-2"></div>
         <!-- Form on the right side -->
         <div class="col-md-8">
-             <div id="usernamediv">Hi! <?=$this->session->userdata('username')?></div>
+             <div id="usernamediv">Hi! <?=$this->session->userdata('username')?> Please Give Your Rates and Answer Below Questions.</div>
              <input type="hidden" id="name_of_user" name="name_of_user" value="<?=$this->session->userdata('username')?>">
             <div class="formdiv">
                 <form>
@@ -396,7 +396,7 @@ Community Service."></i> </label>
                     <input type="hidden" id="user_type" name="user_type" value="STUDENT">
                     <div id="mobilenumdiv" style="display:none;">
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
-                        <p>Terms and Condition <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
+                        <p><a href="<?=base_url()?>/common/terms_and_conditions" target="_blank" style="color:red;">Terms and Condition</a> <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
                         <div id="mobilenuminput" style="display:none">
                             <input type="text" class="form-control" id="usermobile" name="usermobile" onchange="mobile_num_check(this.value, 'MY')" placeholder="Enter Your Mobile Number (Ex: 9476xxxxxx)">
                             <span id="errormsgmymob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>

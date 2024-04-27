@@ -160,7 +160,7 @@ class Common extends CI_Controller {
 		$mobilenum2 = $this->input->post('mobilenum2');
 		$name = $this->input->post('name');
 		
-		$msg = "Hello, This is ".$name."'s stress management app, Mind Cool. We're reaching out to let you know that ".$name." is currently experiencing elevated stress levels. If you could reach out to them and offer support, it would mean a lot. Here's their contact number: +".$mobile.". Thank you for being there for them.";
+		$msg = "Hello, This message from Mind Cool. This is stress management application. We're reaching out to let you know that ".$name." is currently experiencing elevated stress levels. If you could reach out to them and offer support, it would mean a lot. Here's their contact number: +".$mobile.". Thank you for being there for them.";
 
 		if($mobile != '')
 		{
@@ -177,5 +177,10 @@ class Common extends CI_Controller {
 	function test()
 	{
 		echo password_hash('1234', PASSWORD_DEFAULT);
+	}
+
+	function terms_and_conditions()
+	{
+		$this->load->view('common/terms_and_conditions');
 	}
 }

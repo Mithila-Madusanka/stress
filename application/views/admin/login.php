@@ -1,21 +1,27 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<?$this->load->view("includes/header.php")?>
 
-<script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
-<!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
 <style>
-    body{
-    background: url(http://mymaplist.com/img/parallax/back.png);
-	background-color: #444;
-    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-.vertical-offset-100{
-    padding-top:100px;
+
+
+.container{
+	padding-top:200px;
+	padding-bottom:330px
 }
+
+
 </style>
+<head>
+<title>Admin Login</title>
+</head>
 <div class="container">
     <div class="row vertical-offset-100">
     	<div class="col-md-4 col-md-offset-4">
@@ -48,6 +54,7 @@
 		</div>
 	</div>
 </div>
+<?$this->load->view("includes/footer.php")?>
 <script>
     $(document).ready(function(){
   $(document).mousemove(function(e){
