@@ -4,6 +4,7 @@
 ini_set('display_errors', '0');
 ?>
 <title>Mind Cool</title>
+<link rel="icon" type="image/x-icon" href="<?=base_url()?>/media/images/logo.ico">
 <meta name="robots" content="noindex">
 <meta name="googlebot" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
@@ -77,7 +78,8 @@ a, a:hover, a:focus, a:active {
 <body>
 <header>
     <div class="header-left">
-        <h1><a href="<?=base_url()?>">Mind Cool</a></h1>
+        <h1><a href="<?=base_url()?>">
+        <img src= "<?=base_url()?>/media/images/MindCoolLogo.png"alt="Mind Cool Logo" style="width: 130px; height: auto;"></a></h1>
     </div>
     <nav class="header-right">
         <ul>

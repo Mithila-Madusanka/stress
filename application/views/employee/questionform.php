@@ -99,6 +99,26 @@
         li {
             margin-bottom: 10px;
         }
+
+        #mobilenuminput {
+        /* Set a fixed height for the div */
+        height: 100px;
+        /* Enable vertical scrolling */
+        overflow-y: auto;
+    }
+    /* Style for the scrollbar track */
+    #mobilenuminput::-webkit-scrollbar {
+        width: 8px; /* Width of the scrollbar */
+    }
+    /* Style for the scrollbar thumb */
+    #mobilenuminput::-webkit-scrollbar-thumb {
+        background-color: #888; /* Color of the scrollbar thumb */
+        border-radius: 4px; /* Rounded corners */
+    }
+    /* Style for the scrollbar track when hovered */
+    #mobilenuminput::-webkit-scrollbar-track:hover {
+        background-color: #f4f4f4; /* Color of the track on hover */
+    }
 </style>
 <script>
     function predict_stress_level()
@@ -449,7 +469,7 @@ Quality of Sleep = 8 Hours"></i>
                     <span id="errorsleep_disorder" style="color:red;font-size:10pt;margin-left:10px;display:none;"></span>
                 </div>
                 <div style="float:right;">
-                    <button type="button" onclick="predict_stress_level()" class="btn btn-lg btn-primary">Complete</button>
+                    <button type="button" onclick="predict_stress_level()" class="btn btn-lg btn-primary" style="font-size: 15px;">Complete</button>
                 </div>
                 <br>
             </form>
@@ -481,6 +501,7 @@ Quality of Sleep = 8 Hours"></i>
                 <input type="hidden" id="level_num" name="level_num" value="">
                 <input type="hidden" id="user_type" name="user_type" value="EMPLOYEE">
                     <div id="mobilenumdiv" style="display:none;">
+                        <h2>SMS Automation </h2>
                         <p>Sharing your problems with a trusted individual can offer emotional validation and support, making you feel understood and less isolated in your challenges.</p>
                         <p><a href="<?=base_url()?>/common/terms_and_conditions" target="_blank" style="color:red;">Terms and Condition</a> <input type="checkbox" value="YES" onchange="show_mobile_num_input()" id="mobnumbcheck"></p>
                         <div id="mobilenuminput" style="display:none">
@@ -490,24 +511,24 @@ Quality of Sleep = 8 Hours"></i>
                             <span id="errormsgfirstmob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
                             <input type="text" class="form-control" id="mobilenum2" name="mobilenum2" onchange="mobile_num_check(this.value, 'SECOND')" placeholder="Mobile Number 2 (Ex: 9476xxxxxx)">
                             <span id="errormsgsecondmob" style="color:red;font-size:10pt;margin-left:10px;display:none"></span><br>
-                            <button type="button" class="btn btn-primary" onclick="send_sms()">Send SMS</button>
+                            <button type="button" class="btn btn-primary" onclick="send_sms()" style="font-size: 15px;">Send SMS</button>
                         </div>
                     </div>
                     <hr>
                     <div id="musiclistendiv" style="display:none;">
                         <p>Music provides a comprehensive way to relieve stress, addressing both physical and emotional aspects.</p><br>
-                        <p>Do You Like to Listen Music : <a type="button" target="_blank" class="btn btn-primary" href="<?=base_url()?>/Common/get_stress_reduce_music">Yes</a></p>
+                        <p>Do You Like to Listen Music : <a type="button" target="_blank" class="btn btn-primary" href="<?=base_url()?>/Common/get_stress_reduce_music" style="font-size: 15px;">Yes</a></p>
                     </div>
                     <hr>
                     <div>
-                        <p>Music provides a comprehensive way to relieve stress, addressing both physical and emotional aspects.</p><br>
-                        <p>Do You Like to View Stress Relief Best Practices : <button type="button" class="btn btn-primary" onclick="show_stress_relief_best_practices()">Yes</button></p>
+                        
+                        <p>Do You Like to View Stress Relief Best Practices : <button type="button" class="btn btn-primary" onclick="show_stress_relief_best_practices()" style="font-size: 15px;">Yes</button></p>
                     </div>
 
-
+                    <hr>
                 <!-- Modal footer -->
-                <div class="modal-footer">
-                    <p>Do you like to save your current status ? <button type="submit" class="btn btn-primary">Yes</button> <a href="<?=base_url()?>Home" class="btn btn-danger">No</a></p>
+                <div >
+                    <p>Do you like to save your current status ? <button type="submit" class="btn btn-primary" style="font-size: 15px;">Yes</button> <a href="<?=base_url()?>Home" class="btn btn-danger" style="font-size: 15px;">No</a></p>
                 </div>
                 </form>
                 </div>
@@ -591,10 +612,10 @@ Quality of Sleep = 8 Hours"></i>
     function updateProgressBarColor(stressValue) {
         const progressBar = document.getElementById('stress-level');
 
-        if (stressValue <= 30) {
+        if (stressValue <= 37.5) {
             progressBar.classList.remove('bg-warning', 'bg-danger');
             progressBar.classList.add('bg-success');
-        } else if (stressValue <= 70) {
+        } else if (stressValue <= 75) {
             progressBar.classList.remove('bg-success', 'bg-danger');
             progressBar.classList.add('bg-warning');
         } else {

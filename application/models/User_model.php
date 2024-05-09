@@ -70,6 +70,7 @@ class User_model extends CI_Model {
         $this->db->from('user_records');
         $this->db->where('user_id', $user_id);
         $this->db->where('DATE(saved_at)', $date);
+		$this->db->order_by('id','DESC');
         $this->db->limit(1);
         $query = $this->db->get();
 		if($query->num_rows() > 0)

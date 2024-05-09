@@ -26,6 +26,11 @@
         font-size:12pt;
     }
 
+    .modal-body .form-control {
+            font-size: 1.5rem; /* Adjust the font size as needed */
+           
+        }
+
 </style>
 </br></br>
 <h3>Edit Quote</h3>

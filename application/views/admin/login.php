@@ -41,12 +41,12 @@
 			    	<form accept-charset="UTF-8" role="form" method="POST" action="<?=base_url()?>admin/loginCheck">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="E-mail" name="email" type="text">
+			    		    <input class="form-control" placeholder="E-mail" name="email" type="text" style="font-size: 15px;">
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			    			<input class="form-control" placeholder="Password" name="password" type="password" value="" style="font-size: 15px;">
 			    		</div>
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login" style="font-size: 15px;">
 			    	</fieldset>
 			      	</form>
 			    </div>

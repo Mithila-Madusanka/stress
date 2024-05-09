@@ -13,6 +13,7 @@
         content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Mind Cool Admin</title>
+    <link rel="icon" type="image/x-icon" href="<?=base_url()?>/media/images/logo.ico">
     <script src="<?=base_url()?>media/js/jquery-1.11.1.min.js"></script>
     <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
