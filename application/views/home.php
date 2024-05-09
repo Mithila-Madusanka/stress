@@ -1,4 +1,7 @@
 <?$this->load->view("includes/header.php")?>
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
 <style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
@@ -69,7 +72,27 @@
         font-size: 1.5rem; /* Adjust the font size as needed */
         padding: 15px; /* Adjust the padding as needed */
       }
-</style>
+
+      @keyframes blink {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes colorChange {
+        0% { color: pink; }
+        25% { color: blue; }
+        50% { color: green; }
+        75% { color: orange; }
+        100% { color: purple; }
+    }
+
+    /* Apply the animation to the text */
+    .video-content p {
+      animation: blink 3s infinite, colorChange 10s infinite;
+      font-size: 70px
+    }
+</style></head>
 <section class="video-section">
     <video autoplay muted loop id="background-video">
         <source src="<?=base_url()?>/media/videos/home.mp4" type="video/mp4">
@@ -91,7 +114,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Hi ! How Can I talk to You?</h4>
+        <h2 class="modal-title">Hi ! How Can I talk to You?</h2>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -118,14 +141,14 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Hi! <span id="userNamePlaceholder"></span></h4>
+        <h2 class="modal-title">Hi!.. <span id="userNamePlaceholder"></span> Are You? </h2>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
         
-      <form method="POST" action="<?=base_url()?>/common/userform">
+      <form method="POST" action="<?=base_url()?>/common/userform" id="userForm">
       <input type="hidden" id="username" name="username" value="">
           <div class="mt-3">
             <label class="mr-3">
@@ -139,7 +162,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" id="nextButtonUser" disabled>
             Next <i class="fa fa-arrow-right"></i>
           </button>
         </div>
@@ -166,6 +189,30 @@
     $("#username").val(name);
     $('#userModel').modal('hide');
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get radio buttons and next button
+    var radioButtons = document.querySelectorAll('input[name="userType"]');
+    var nextButton = document.getElementById('nextButtonUser');
+
+    console.log("Radio buttons:", radioButtons);
+    console.log("Next button:", nextButton);
+
+    // Add event listener to radio buttons
+    radioButtons.forEach(function(radioButton) {
+      radioButton.addEventListener('change', function() {
+        console.log("Change event fired");
+        // Enable the next button if any radio button is selected
+        var selectedRadio = document.querySelector('input[name="userType"]:checked');
+        console.log("Selected radio button:", selectedRadio);
+        if (selectedRadio) {
+          nextButton.disabled = false;
+        } else {
+          nextButton.disabled = true;
+        }
+      });
+    });
+  });
 </script>
 
 <?$this->load->view("includes/footer.php")?>
